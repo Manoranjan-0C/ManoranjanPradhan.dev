@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manoranjan Pradhan - Software Developer</title>
+    <meta name="description" content="Hi, I'm Manoranjan Pradhan. Explore my projects, skills, and web development journey.">
+    <link rel="icon" type="image/jpeg" href="profile.jpg">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="welcome-animation">
+                <h1 class="welcome-text">
+                    <span class="letter">W</span>
+                    <span class="letter">e</span>
+                    <span class="letter">l</span>
+                    <span class="letter">c</span>
+                    <span class="letter">o</span>
+                    <span class="letter">m</span>
+                    <span class="letter">e</span>
+                </h1>
+                <div class="welcome-subtitle">to my digital universe</div>
+                <div class="welcome-dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Container -->
+    <div class="book-container" id="bookContainer">
+        <!-- Page Navigation Indicators -->
+        <div class="page-indicators">
+            <div class="page-dot active" data-page="0"></div>
+            <div class="page-dot" data-page="1"></div>
+            <div class="page-dot" data-page="2"></div>
+            <div class="page-dot" data-page="3"></div>
+            <div class="page-dot" data-page="4"></div>
+        </div>
+
+        <!-- Menu Button -->
+        <button class="menu-btn" id="menuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Navigation Menu -->
+        <div class="nav-menu" id="navMenu">
+            <div class="nav-header">
+                <h3>Portfolio</h3>
+                <button class="close-menu" id="closeMenu">×</button>
+            </div>
+            <nav>
+                <a href="#" data-page="0">🏠 Welcome</a>
+                <a href="#" data-page="1">👋 About Me</a>
+                <a href="#" data-page="2">⚡ Skills</a>
+                <a href="#" data-page="3">🚀 Projects</a>
+                <a href="#" data-page="4">🤝 Connect</a>
+            </nav>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="nav-arrows">
+            <button class="nav-arrow prev" id="prevArrow">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="nav-arrow next" id="nextArrow">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Pages Container -->
+        <div class="pages-wrapper">
+            <!-- Page 1: Welcome Page -->
+            <div class="page active" data-page="0">
+                <div class="page-content welcome-page">
+                    <div class="welcome-layout">
+                        <div class="welcome-content">
+                            <div class="main-greeting">
+                                <h3 class="greeting">Hi!</h3>
+                                <h2 class="name">I am <span class="highlight">Manoranjan Pradhan</span></h2>
+                                <div class="title-section">
+                                    <p class="title">Aspiring Software Developer</p>
+                                    <p class="subtitle-and">And</p>
+                                    <p class="title">Tech Enthusiast</p>
+                                </div>
+
+                                <div class="typing-animation">
+                                    <span class="typed-text"></span>
+                                    <span class="cursor">|</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <div class="profile-image-container">
+                                <img src="profile.jpg" alt="Manoranjan Pradhan" class="profile-image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swipe-hint">
+                        <div class="swipe-icon">→</div>
+                        <p>Swipe left or tap → to explore</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 2: About Me -->
+            <div class="page" data-page="1">
+                <div class="page-content about-page">
+                    <h2 class="page-title">About Me 📖</h2>
+
+                    <div class="about-content">
+                        <div class="about-text">
+                            <p>Hi! I'm <strong>Manoranjan Pradhan</strong>, a passionate web developer and computer science student. I enjoy building full-stack websites, mobile apps, and solving real-world problems using code.</p>
+
+                            <p>I'm skilled in technologies like <strong>HTML, CSS, JavaScript, React, Node.js, MongoDB</strong>, and also work with <strong>Android Studio and C++</strong>.</p>
+
+                            <p>I'm currently working on improving my <strong>DSA skills</strong> and building projects to grow as a developer. I'm always excited to learn new tools and contribute to meaningful tech projects.</p>
+                        </div>
+
+                        <div class="facts-grid">
+                            <div class="fact-card">
+                                <div class="fact-icon">🎓</div>
+                                <h4>Education</h4>
+                                <p>B.Tech Student</p>
+                            </div>
+
+                            <div class="fact-card">
+                                <div class="fact-icon">🧠</div>
+                                <h4>Learning</h4>
+                                <p>Java, C++, DSA, Web Dev</p>
+                            </div>
+
+                            <div class="fact-card">
+                                <div class="fact-icon">💼</div>
+                                <h4>Goal</h4>
+                                <p>Software Engineering</p>
+                            </div>
+
+                            <div class="fact-card">
+                                <div class="fact-icon">🧑‍💻</div>
+                                <h4>Practice</h4>
+                                <p>250+ LeetCode Problems</p>
+                            </div>
+                        </div>
+
+                        <div class="motto">
+                            <i>"Code. Learn. Build. Repeat."</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 3: Skills -->
+            <div class="page" data-page="2">
+                <div class="page-content skills-page">
+                    <h2 class="page-title">Skills & Technologies ⚡</h2>
+
+                    <div class="skills-container">
+                        <div class="skill-category">
+                            <h3>Programming Languages</h3>
+                            <div class="skills-progress-list">
+                                <div class="skill-progress-item">
+                                    <div class="skill-header">
+                                        <div class="skill-logo">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M16.5992 8.667c0-.7307-.2656-1.3958-.7138-1.9063C15.4372 6.25 14.7646 5.9531 14 5.9531c-.7646 0-1.4372.2969-1.8854.8076-.4482.5105-.7138 1.1756-.7138 1.9063 0 .7305.2656 1.3958.7138 1.9063.4482.5107 1.1208.8076 1.8854.8076.7646 0 1.4372-.2969 1.8854-.8076.4482-.5105.7138-1.1758.7138-1.9063zM14 7.1172c.3632 0 .6958.1406.9326.3945.2368.254.373.5967.373.9883 0 .3916-.1362.7343-.373.9883-.2368.254-.5694.3945-.9326.3945-.3632 0-.6958-.1406-.9326-.3945-.2368-.254-.373-.5967-.373-.9883 0-.3916.1362-.7343.373-.9883.2368-.254.5694-.3945.9326-.3945zM12 2C6.4771 2 2 6.4771 2 12s4.4771 10 10 10 10-4.4771 10-10S17.5229 2 12 2z"/>
+                                            </svg>
+                                        </div>
+                                        <span class="skill-name">C</span>
+                                        <span class="skill-percentage">85%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill" data-progress="85"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress-item">
+                                    <div class="skill-header">
+                                        <div class="skill-logo">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91zM12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.109-7.11 3.92 0 7.109 3.19 7.109 7.11 0 3.92-3.19 7.11-7.109 7.11z"/>
+                                                <path d="M11.276 11.013h-1.06v.936h1.06v1.06h-.936v1.06h-.936v-1.06H8.34v-1.06h1.06v-.936H8.34v-1.06h1.06v-1.06h.936v1.06h1.06v1.06zm3.184.936h1.06v1.06h-1.06v1.06h-.936v-1.06h-1.06v-1.06h1.06v-.936h-.936v-1.06h1.06v-1.06h.936v1.06h1.06v1.06h-1.06v.936z"/>
+                                            </svg>
+                                        </div>
+                                        <span class="skill-name">C++</span>
+                                        <span class="skill-percentage">90%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill" data-progress="90"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress-item">
+                                    <div class="skill-header">
+                                        <i class="fab fa-java"></i>
+                                        <span class="skill-name">Java</span>
+                                        <span class="skill-percentage">88%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill" data-progress="88"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress-item">
+                                    <div class="skill-header">
+                                        <i class="fab fa-python"></i>
+                                        <span class="skill-name">Python</span>
+                                        <span class="skill-percentage">92%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill" data-progress="92"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress-item">
+                                    <div class="skill-header">
+                                        <i class="fab fa-js-square"></i>
+                                        <span class="skill-name">JavaScript</span>
+                                        <span class="skill-percentage">87%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill" data-progress="87"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress-item">
+                                    <div class="skill-header">
+                                        <div class="skill-logo">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M1.3 24l11.3-11.5L24 24zM0 0h12L0 12.5zM13.4 0L0 14v10l12-12L24 0z"/>
+                                            </svg>
+                                        </div>
+                                        <span class="skill-name">Kotlin</span>
+                                        <span class="skill-percentage">75%</span>
+                                    </div>
+                                    <div class="skill-progress-bar">
+                                        <div class="skill-progress-fill" data-progress="75"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>AI/ML & Data Science</h3>
+                            <div class="skills-list">
+                                <div class="skill-item">
+                                    <i class="fas fa-brain"></i>
+                                    <span>Machine Learning</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-robot"></i>
+                                    <span>Deep Learning</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Data Analysis</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-database"></i>
+                                    <span>Data Science</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-code-branch"></i>
+                                    <span>TensorFlow</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-fire"></i>
+                                    <span>PyTorch</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>Pandas</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Scikit-learn</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>Web & Cloud</h3>
+                            <div class="skills-list">
+                                <div class="skill-item">
+                                    <i class="fab fa-html5"></i>
+                                    <span>HTML5</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fab fa-css3-alt"></i>
+                                    <span>CSS3</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fab fa-react"></i>
+                                    <span>React</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fab fa-node-js"></i>
+                                    <span>Node.js</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fab fa-aws"></i>
+                                    <span>AWS</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fab fa-google"></i>
+                                    <span>Google Cloud</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fab fa-docker"></i>
+                                    <span>Docker</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-database"></i>
+                                    <span>MongoDB</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3>Tools & Problem Solving</h3>
+                            <div class="skills-list">
+                                <div class="skill-item">
+                                    <i class="fab fa-git-alt"></i>
+                                    <span>Git</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fab fa-github"></i>
+                                    <span>GitHub</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-code"></i>
+                                    <span>VS Code</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-trophy"></i>
+                                    <span>250+ LeetCode</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-lightbulb"></i>
+                                    <span>Problem Solving</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-project-diagram"></i>
+                                    <span>System Design</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Projects -->
+            <div class="page" data-page="3">
+                <div class="page-content projects-page">
+                    <h2 class="page-title">My Projects 🚀</h2>
+
+                    <div class="projects-container">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=250&fit=crop" alt="AI Chatbot">
+                            </div>
+                            <div class="project-content">
+                                <h3>AI Chatbot Assistant</h3>
+                                <p>Intelligent chatbot using JavaScript & OpenAI API with natural language processing capabilities.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">OpenAI</span>
+                                    <span class="tech-tag">Node.js</span>
+                                </div>
+                                <a href="https://github.com/Manoranjan-0C/ai-chatbot" target="_blank" class="project-link">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400&h=250&fit=crop" alt="Weather App">
+                            </div>
+                            <div class="project-content">
+                                <h3>Weather Web App</h3>
+                                <p>Real-time weather application using HTML/CSS/JS with OpenWeather API integration.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML</span>
+                                    <span class="tech-tag">CSS</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">API</span>
+                                </div>
+                                <a href="https://github.com/Manoranjan-0C/weather-app" target="_blank" class="project-link">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop" alt="Portfolio Website">
+                            </div>
+                            <div class="project-content">
+                                <h3>Personal Portfolio</h3>
+                                <p>Responsive portfolio website showcasing my projects and skills with modern design.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML</span>
+                                    <span class="tech-tag">CSS</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">Responsive</span>
+                                </div>
+                                <a href="https://github.com/Manoranjan-0C/portfolio" target="_blank" class="project-link">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=250&fit=crop" alt="To-Do App">
+                            </div>
+                            <div class="project-content">
+                                <h3>Task Manager App</h3>
+                                <p>Feature-rich to-do list application with localStorage for data persistence.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">LocalStorage</span>
+                                    <span class="tech-tag">CSS3</span>
+                                </div>
+                                <a href="https://github.com/Manoranjan-0C/task-manager" target="_blank" class="project-link">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop" alt="Java CLI App">
+                            </div>
+                            <div class="project-content">
+                                <h3>Student Management System</h3>
+                                <p>Java-based command-line application for managing student records with file I/O operations.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Java</span>
+                                    <span class="tech-tag">CLI</span>
+                                    <span class="tech-tag">File I/O</span>
+                                </div>
+                                <a href="https://github.com/Manoranjan-0C/student-management" target="_blank" class="project-link">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 5: Connect -->
+            <div class="page" data-page="4">
+                <div class="page-content connect-page">
+                    <h2 class="page-title">Let's Connect 🤝</h2>
+
+                    <div class="connect-content">
+                        <div class="connect-intro">
+                            <p>Want to collaborate or just say hi? I'd love to hear from you!</p>
+                            <p>Feel free to reach out through any of these platforms:</p>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://github.com/Manoranjan-0C" target="_blank" class="social-link">
+                                <i class="fab fa-github"></i>
+                                <span>GitHub</span>
+                            </a>
+
+                            <a href="https://leetcode.com/u/Manoranjan_006/" target="_blank" class="social-link">
+                                <i class="fas fa-code"></i>
+                                <span>LeetCode</span>
+                            </a>
+
+                            <a href="https://linkedin.com/in/manoranjan-pradhan-536122361" target="_blank" class="social-link">
+                                <i class="fab fa-linkedin"></i>
+                                <span>LinkedIn</span>
+                            </a>
+
+                            <a href="https://x.com/Manoranjan2006c" target="_blank" class="social-link">
+                                <i class="fab fa-twitter"></i>
+                                <span>Twitter</span>
+                            </a>
+
+                            <a href="mailto:manoranjanpradhan15559@gmail.com" class="social-link">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email</span>
+                            </a>
+                        </div>
+
+                        <div class="contact-form">
+                            <h3>Send me a message</h3>
+                            <form>
+                                <div class="form-group">
+                                    <input type="text" placeholder="Your Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" placeholder="Your Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="submit-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
