@@ -466,29 +466,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleTouchStart(e) {
         startY = e.touches[0].clientY;
         startX = e.touches[0].clientX;
-        isScrolling = false;
-
-        // Check if we're in a scrollable content area
-        const scrollableElements = [
-            '.about-text', '.skills-grid', '.project-content', 
-            '.connect-content', '.facts-grid', '.page-content'
-        ];
-        
-        const isInScrollableArea = scrollableElements.some(selector => 
-            e.target.closest(selector)
-        );
-
-        // Allow scrolling in content areas, but not on navigation elements
-        if (isInScrollableArea && !e.target.closest('.nav-arrow') && 
-            !e.target.closest('.page-dot') && !e.target.closest('.menu-btn')) {
-            isScrolling = true;
-        }
-
-        // Prevent scrolling on navigation and header elements
-        if (e.target.closest('.nav-arrow') || e.target.closest('.page-dot') || 
-            e.target.closest('.menu-btn') || e.target.closest('.profile-header')) {
-            isScrolling = false;
-        }
+        isScrolling = false; // reset; allow swipe detection from anywhere
     }
 
     function handleTouchMove(e) {
@@ -519,8 +497,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const deltaY = startY - endY;
         const deltaX = startX - endX;
-        const minSwipeDistance = 30; // More sensitive for better mobile experience
-        const swipeThreshold = 20; // Lower threshold for easier swiping
+        const minSwipeDistance = 20; // reduced for better sensitivity
+        const swipeThreshold = 10; // lower threshold for easier swiping
 
         // Prioritize horizontal swipes for page navigation
         if (Math.abs(deltaX) > swipeThreshold && Math.abs(deltaX) > Math.abs(deltaY) * 0.5) {

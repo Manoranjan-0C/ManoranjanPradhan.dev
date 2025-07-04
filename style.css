@@ -423,26 +423,26 @@ body {
 /* === Hero Image Override === */
 .profile-section-top {
     position: relative;
-    height: 50vh;
-    width: 100%;
     overflow: hidden;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100% !important;
+    height: 50vh !important;
 }
 
 .profile-image-container,
 .profile-image {
-    width: 100%;
-    height: 100%;
+    width: 100% !important;   /* Stretch from left edge to right edge */
+    height: 50vh !important;  /* Occupy exactly top half of viewport */
 }
 
 .profile-image {
-    object-fit: cover;
-    object-position: center;
-    border-radius: 0;
-    box-shadow: none;
+    object-fit: cover !important; /* Keep aspect ratio while filling */
+    object-position: center !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
     animation: zoomIn 1s ease-out both;
     transition: all 0.3s ease;
 }
