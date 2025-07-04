@@ -427,9 +427,6 @@ body {
     width: 100%;
     overflow: hidden;
     padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .profile-image-container,
@@ -440,11 +437,9 @@ body {
 
 .profile-image {
     object-fit: cover;
-    object-position: center;
     border-radius: 0;
     box-shadow: none;
     animation: zoomIn 1s ease-out both;
-    transition: all 0.3s ease;
 }
 
 .welcome-content-bottom {
@@ -474,150 +469,6 @@ body {
     100% {
         opacity: 1;
         transform: scale(1);
-    }
-}
-
-/* Enhanced Mobile Photo Animations */
-@keyframes photoFloat {
-    0%, 100% {
-        transform: translateY(0) scale(1);
-    }
-    50% {
-        transform: translateY(-10px) scale(1.02);
-    }
-}
-
-@keyframes photoShimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
-
-.profile-image-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    background-size: 200% 100%;
-    animation: photoShimmer 3s infinite;
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* Enhanced Mobile Animations */
-@keyframes bounceIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.3) translateY(50px);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.05) translateY(-10px);
-    }
-    70% {
-        transform: scale(0.95) translateY(0);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-@keyframes slideInLeft {
-    0% {
-        opacity: 0;
-        transform: translateX(-100px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideInRight {
-    0% {
-        opacity: 0;
-        transform: translateX(100px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes rotateIn {
-    0% {
-        opacity: 0;
-        transform: rotate(-180deg) scale(0.5);
-    }
-    100% {
-        opacity: 1;
-        transform: rotate(0deg) scale(1);
-    }
-}
-
-/* Mobile-Optimized Skill Item Animations */
-.skill-item {
-    animation: fadeInUp 0.6s ease forwards;
-    opacity: 0;
-}
-
-.skill-item:nth-child(odd) {
-    animation: slideInLeft 0.6s ease forwards;
-}
-
-.skill-item:nth-child(even) {
-    animation: slideInRight 0.6s ease forwards;
-}
-
-/* Enhanced Project Card Animations */
-.project-card {
-    animation: bounceIn 0.8s ease forwards;
-    opacity: 0;
-}
-
-/* Enhanced Page Transition Effects */
-.page-transition-effect {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
-    opacity: 0;
-    animation: rippleEffect 0.6s ease-out;
-    pointer-events: none;
-    z-index: 999;
-}
-
-@keyframes rippleEffect {
-    0% {
-        opacity: 0;
-        transform: scale(0);
-    }
-    50% {
-        opacity: 0.3;
-    }
-    100% {
-        opacity: 0;
-        transform: scale(2);
     }
 }
 
@@ -1308,53 +1159,30 @@ body {
         font-size: 1rem;
     }
 
-    /* Welcome Page Mobile - Enhanced */
+    /* Welcome Page Mobile */
     .welcome-layout {
         flex-direction: column;
         padding: 0;
         gap: 0;
-        height: 100vh;
     }
 
     .profile-section-top {
         width: 100%;
-        height: 50vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .profile-image-container {
-        width: 90%;
-        height: 90%;
-        max-width: 350px;
-        max-height: 350px;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        position: relative;
-    }
-
-    .profile-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        transition: all 0.3s ease;
-        animation: photoFloat 4s ease-in-out infinite;
+        height: 40vh;
     }
 
     .welcome-content-bottom {
         width: 100%;
-        height: 50vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        height: 60vh;
         text-align: center;
         padding: 20px;
+    }
+
+    .profile-image {
+        width: 85%;
+        height: 85%;
+        max-width: 300px;
+        max-height: 300px;
     }
 }
 
@@ -1423,26 +1251,21 @@ body {
         height: 6px;
     }
 
-    /* Welcome Page Small Mobile - Enhanced */
+    /* Welcome Page Small Mobile */
     .profile-section-top {
-        height: 45vh;
-    }
-
-    .profile-image-container {
-        width: 85%;
-        height: 85%;
-        max-width: 280px;
-        max-height: 280px;
-        border-radius: 15px;
+        height: 40vh;
     }
 
     .profile-image {
-        animation: photoFloat 3s ease-in-out infinite;
+        width: 80%;
+        height: 80%;
+        max-width: 250px;
+        max-height: 250px;
     }
 
     .welcome-content-bottom {
         padding: 15px 10px;
-        height: 55vh;
+        height: 60vh;
     }
 
     .greeting {
