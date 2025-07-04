@@ -48,6 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let endX = 0;
     let isScrolling = false;
 
+    // Sound effects references
+    const tapSound = document.getElementById('tapSound');
+    const sliceSound = document.getElementById('sliceSound');
+
     // Initialize the app
     function init() {
         // Hide loading screen after a short delay
@@ -198,6 +202,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (contactForm) {
             contactForm.addEventListener('submit', handleFormSubmit);
         }
+
+        // Global tap sound for any interaction
+        document.addEventListener('pointerdown', () => {
+            if (tapSound) {
+                tapSound.currentTime = 0;
+                tapSound.play().catch(()=>{});
+            }
+        });
     }
 
     // Menu functions
@@ -238,6 +250,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         console.log(`✅ Navigation allowed to page ${pageIndex}`);
+
+        // Play slicing sound effect
+        if (sliceSound) {
+            sliceSound.currentTime = 0;
+            sliceSound.play().catch(()=>{});
+        }
 
         isTransitioning = true;
         const direction = pageIndex > currentPage ? 1 : -1;
