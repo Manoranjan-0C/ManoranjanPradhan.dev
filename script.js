@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Sound effects references
     const tapSound = document.getElementById('tapSound');
     const sliceSound = document.getElementById('sliceSound');
+    const hoverSound = document.getElementById('hoverSound');
 
     // Initialize the app
     function init() {
@@ -210,6 +211,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 tapSound.play().catch(()=>{});
             }
         });
+
+        // Hover sound on interactive elements
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('.skill-item, .project-card, .social-link, .page-dot, .nav-arrow')) {
+                if (hoverSound) {
+                    hoverSound.currentTime = 0;
+                    hoverSound.play().catch(()=>{});
+                }
+            }
+        });
     }
 
     // Menu functions
@@ -281,22 +292,22 @@ document.addEventListener('DOMContentLoaded', function() {
         nextPageEl.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
 
         if (direction > 0) {
-            // Moving forward - slide left
-            currentPageEl.style.transform = 'translateX(-100%) scale(0.95)';
+            // Moving forward - page turn left
+            currentPageEl.style.transform = 'translateX(-100%) rotateY(-35deg) scale(0.95)';
             currentPageEl.style.opacity = '0.5';
-            nextPageEl.style.transform = 'translateX(100%) scale(1.05)';
+            nextPageEl.style.transform = 'translateX(100%) rotateY(35deg) scale(1.05)';
             nextPageEl.style.opacity = '0';
         } else {
-            // Moving backward - slide right
-            currentPageEl.style.transform = 'translateX(100%) scale(0.95)';
+            // Moving backward - page turn right
+            currentPageEl.style.transform = 'translateX(100%) rotateY(35deg) scale(0.95)';
             currentPageEl.style.opacity = '0.5';
-            nextPageEl.style.transform = 'translateX(-100%) scale(1.05)';
+            nextPageEl.style.transform = 'translateX(-100%) rotateY(-35deg) scale(1.05)';
             nextPageEl.style.opacity = '0';
         }
 
         setTimeout(() => {
             // Animate next page into view
-            nextPageEl.style.transform = 'translateX(0) scale(1)';
+            nextPageEl.style.transform = 'translateX(0) rotateY(0deg) scale(1)';
             nextPageEl.style.opacity = '1';
             nextPageEl.classList.add('active');
             
