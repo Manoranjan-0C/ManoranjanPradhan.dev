@@ -44,9 +44,26 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <audio id="tapSound" preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.wav"></audio>
-    <audio id="sliceSound" preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-page-turn-single-1024.wav"></audio>
-    <audio id="hoverSound" preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-bubble-pop-1121.wav"></audio>
+    
+    <!-- Enhanced Audio Elements for Mobile -->
+    <audio id="tapSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.wav" type="audio/wav">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmcdBjiS1fDJeS4GLX7K8NuOMwoXZLXl56ZUEwr8mNzyvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEgr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOw==" type="audio/wav">
+    </audio>
+    <audio id="sliceSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-page-turn-single-1024.wav" type="audio/wav">
+        <source src="data:audio/wav;base64,UklGRroGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmcdBjiS1fDJeS4GLX7K8NuOMwoXZLXl56ZUEwr8mNzyvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEgr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOw==" type="audio/wav">
+    </audio>
+    <audio id="hoverSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-bubble-pop-1121.wav" type="audio/wav">
+        <source src="data:audio/wav;base64,UklGRroGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmcdBjiS1fDJeS4GLX7K8NuOMwoXZLXl56ZUEwr8mNzyvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEgr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOw==" type="audio/wav">
+    </audio>
+    <audio id="successSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmcdBjiS1fDJeS4GLX7K8NuOMwoXZLXl56ZUEwr8mNzyvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEgr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOw==" type="audio/wav">
+    </audio>
+    <audio id="errorSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmcdBjiS1fDJeS4GLX7K8NuOMwoXZLXl56ZUEwr8mNzyvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEgr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOwoUZLbm56ZUEQr8mNryvmQdBjiS1fDIeSsFLH7K8NuPOwoVZLXl56ZUEgr8mNryvmQdBjiS1fDIeSsFLX7K8NuPOw==" type="audio/wav">
+    </audio>
 </head>
 <body>
     <!-- Welcome Screen -->
