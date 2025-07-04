@@ -1531,3 +1531,60 @@ body {
     background: rgba(255, 255, 255, 0.5);
 }
 
+/* Enhanced Mobile Touch Targets */
+@media (max-width: 768px) {
+    .nav-arrow, .page-dot, .menu-btn {
+        min-width: 44px;
+        min-height: 44px;
+        touch-action: manipulation;
+    }
+    
+    .social-link, .skill-item, .fact-card {
+        touch-action: manipulation;
+        user-select: none;
+    }
+}
+
+/* Mobile Animation Enhancements */
+.mobile-bounce {
+    animation: mobileBounce 0.3s ease;
+}
+
+@keyframes mobileBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+/* Progressive Web App Optimizations */
+@media (display-mode: standalone) {
+    .menu-btn {
+        top: 30px;
+    }
+    
+    .page-indicators {
+        bottom: 30px;
+    }
+}
+
+/* High DPI Display Optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .profile-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Reduce Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .profile-image {
+        animation: none !important;
+    }
+}
+

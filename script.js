@@ -29,12 +29,16 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`Page ${index}: data-page="${pageNum}", class="${page.className}"`);
     });
 
-    // Typing animation texts
+    // Enhanced typing animation texts for mobile
     const typingTexts = [
         'Building the future with code...',
         'Solving problems, one algorithm at a time...',
         'Passionate about clean, efficient code...',
-        'Always learning, always growing...'
+        'Always learning, always growing...',
+        'Creating amazing mobile experiences...',
+        'Turning ideas into reality...',
+        'Code. Learn. Build. Repeat.',
+        'Making technology accessible for everyone...'
     ];
 
     let currentTextIndex = 0;
@@ -248,21 +252,35 @@ document.addEventListener('DOMContentLoaded', function() {
             contactForm.addEventListener('submit', handleFormSubmit);
         }
 
-        // Global tap sound for any interaction
-        document.addEventListener('pointerdown', () => {
-            if (tapSound) {
-                tapSound.currentTime = 0;
-                tapSound.play().catch(()=>{});
+        // Enhanced sound effects for mobile interactions
+        document.addEventListener('pointerdown', (e) => {
+            playSound(tapSound, 0.2);
+            
+            // Add ripple effect on interactive elements
+            if (e.target.closest('.nav-arrow, .page-dot, .menu-btn, .social-link, .skill-item, .project-card')) {
+                createRippleEffect(e.target.closest('.nav-arrow, .page-dot, .menu-btn, .social-link, .skill-item, .project-card'), e);
             }
         });
 
-        // Hover sound on interactive elements
+        // Enhanced hover sound on interactive elements
         document.addEventListener('mouseover', (e) => {
-            if (e.target.closest('.skill-item, .project-card, .social-link, .page-dot, .nav-arrow')) {
-                if (hoverSound) {
-                    hoverSound.currentTime = 0;
-                    hoverSound.play().catch(()=>{});
-                }
+            if (e.target.closest('.skill-item, .project-card, .social-link, .page-dot, .nav-arrow, .fact-card')) {
+                playSound(hoverSound, 0.15);
+            }
+        });
+
+        // Touch start for mobile feedback
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.nav-arrow, .page-dot, .menu-btn, .social-link')) {
+                e.target.style.transform = 'scale(0.95)';
+                playSound(tapSound, 0.2);
+            }
+        });
+
+        // Touch end for mobile feedback
+        document.addEventListener('touchend', (e) => {
+            if (e.target.closest('.nav-arrow, .page-dot, .menu-btn, .social-link')) {
+                e.target.style.transform = 'scale(1)';
             }
         });
     }
@@ -306,11 +324,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log(`✅ Navigation allowed to page ${pageIndex}`);
 
-        // Play slicing sound effect
-        if (sliceSound) {
-            sliceSound.currentTime = 0;
-            sliceSound.play().catch(()=>{});
-        }
+        // Play enhanced page transition sound effect
+        playSound(sliceSound, 0.4);
 
         isTransitioning = true;
         const direction = pageIndex > currentPage ? 1 : -1;
@@ -765,24 +780,51 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Contact form handler
+    // Enhanced contact form handler with sound effects
     function handleFormSubmit(e) {
         e.preventDefault();
         
         const submitBtn = e.target.querySelector('.submit-btn');
         const originalText = submitBtn.innerHTML;
         
+        // Play tap sound for form submission
+        playSound(tapSound, 0.3);
+        
         // Show loading state
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitBtn.disabled = true;
+        submitBtn.style.background = 'var(--orange-primary)';
         
         // Simulate form submission (replace with actual implementation)
         setTimeout(() => {
+            // Success state with sound
+            playSound(successSound, 0.5);
             submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+            submitBtn.style.background = 'var(--green-primary)';
+            
+            // Add success animation
+            submitBtn.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                submitBtn.style.transform = 'scale(1)';
+            }, 200);
+            
             setTimeout(() => {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
+                submitBtn.style.background = 'var(--accent-color)';
                 e.target.reset();
+                
+                // Add form reset animation
+                const formGroups = e.target.querySelectorAll('.form-group');
+                formGroups.forEach((group, index) => {
+                    setTimeout(() => {
+                        group.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            group.style.transform = 'scale(1)';
+                        }, 100);
+                    }, index * 50);
+                });
+                
             }, 2000);
         }, 2000);
     }
@@ -860,10 +902,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Mobile vibration feedback (if supported)
+    function vibrateFeedback(pattern = [50]) {
+        if ('vibrate' in navigator && soundEnabled) {
+            navigator.vibrate(pattern);
+        }
+    }
+
+    // Add enhanced mobile interactions
+    function setupMobileEnhancements() {
+        // Add vibration feedback to page navigation
+        const originalGoToPage = goToPage;
+        window.goToPage = function(pageIndex) {
+            vibrateFeedback([30]);
+            return originalGoToPage(pageIndex);
+        };
+
+        // Enable audio context on first user interaction (required for mobile)
+        function enableAudioContext() {
+            const audioElements = [tapSound, sliceSound, hoverSound, successSound, errorSound];
+            audioElements.forEach(audio => {
+                if (audio) {
+                    audio.play().then(() => {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    }).catch(() => {});
+                }
+            });
+            document.removeEventListener('touchstart', enableAudioContext);
+            document.removeEventListener('click', enableAudioContext);
+        }
+        
+        document.addEventListener('touchstart', enableAudioContext, { once: true });
+        document.addEventListener('click', enableAudioContext, { once: true });
+
+        // Add loading performance indicators
+        console.log('📱 Mobile optimizations loaded');
+        console.log('🔊 Sound effects enabled');
+        console.log('📳 Haptic feedback enabled');
+    }
+
     // Initialize everything
     init();
     setupScrollAnimations();
     optimizePerformance();
+    setupMobileEnhancements();
 
     // Add some easter eggs for developers
     console.log('%c🎉 Welcome to Manoranjan\'s Portfolio! 🎉', 'color: #ffffff; font-size: 20px; font-weight: bold;');
