@@ -420,31 +420,70 @@ body {
     padding: 0;
 }
 
-/* === Hero Image Override === */
+/* === Enhanced Hero Image - Full Top Half Coverage === */
 .profile-section-top {
     position: relative;
     height: 50vh;
     width: 100%;
     overflow: hidden;
     padding: 0;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(135deg, rgba(157, 78, 221, 0.1), rgba(52, 152, 219, 0.1));
 }
 
-.profile-image-container,
+.profile-image-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+}
+
 .profile-image {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 0;
+    box-shadow: 0 0 30px rgba(157, 78, 221, 0.3);
+    animation: zoomIn 1s ease-out both, photoFloat 6s ease-in-out infinite;
+    transition: all 0.3s ease;
+    transform-origin: center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    filter: brightness(1.1) contrast(1.05) saturate(1.1);
 }
 
-.profile-image {
-    object-fit: cover;
-    object-position: center;
-    border-radius: 0;
-    box-shadow: none;
-    animation: zoomIn 1s ease-out both;
-    transition: all 0.3s ease;
+/* Enhanced Mobile Photo Animation Effects */
+.profile-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: photoShimmer 3s ease-in-out infinite;
+    z-index: 1;
+}
+
+.profile-image-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, 
+        transparent 0%, 
+        transparent 60%, 
+        rgba(10, 10, 10, 0.3) 90%, 
+        rgba(10, 10, 10, 0.7) 100%);
+    pointer-events: none;
+    z-index: 2;
 }
 
 .welcome-content-bottom {
@@ -483,17 +522,107 @@ body {
         transform: translateY(0) scale(1);
     }
     50% {
-        transform: translateY(-10px) scale(1.02);
+        transform: translateY(-8px) scale(1.01);
     }
 }
 
 @keyframes photoShimmer {
     0% {
-        background-position: -200% 0;
+        left: -100%;
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
     }
     100% {
-        background-position: 200% 0;
+        left: 100%;
+        opacity: 0;
     }
+}
+
+/* Enhanced Page Transition Effects */
+@keyframes pageSlideInLeft {
+    0% {
+        transform: translateX(-100%) rotateY(-15deg) scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) rotateY(0deg) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes pageSlideInRight {
+    0% {
+        transform: translateX(100%) rotateY(15deg) scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) rotateY(0deg) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes pageSlideOutLeft {
+    0% {
+        transform: translateX(0) rotateY(0deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%) rotateY(-15deg) scale(0.9);
+        opacity: 0;
+    }
+}
+
+@keyframes pageSlideOutRight {
+    0% {
+        transform: translateX(0) rotateY(0deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%) rotateY(15deg) scale(0.9);
+        opacity: 0;
+    }
+}
+
+/* Ripple Effect for Touch Feedback */
+.page-transition-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(157, 78, 221, 0.3) 0%, transparent 70%);
+    transform: scale(0);
+    animation: rippleEffect 0.6s ease-out;
+    pointer-events: none;
+    width: 100px;
+    height: 100px;
+    margin-left: -50px;
+    margin-top: -50px;
+    z-index: 1000;
+}
+
+@keyframes rippleEffect {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Enhanced Mobile Touch Visual Feedback */
+.page:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+.nav-arrow:active,
+.page-dot:active,
+.skill-item:active,
+.fact-card:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
 }
 
 .profile-image-container::before {
@@ -1529,5 +1658,176 @@ body {
 
 .page-content::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.5);
+}
+
+/* Enhanced Mobile Touch Optimizations */
+@media (max-width: 768px) {
+    /* Better Touch Targets */
+    .nav-arrow {
+        min-width: 55px;
+        min-height: 55px;
+        border-width: 3px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .page-dot {
+        min-width: 14px;
+        min-height: 14px;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        background: transparent;
+    }
+
+    .page-dot.active {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+        box-shadow: 0 0 20px rgba(157, 78, 221, 0.6);
+    }
+
+    /* Enhanced Profile Image for Mobile */
+    .profile-section-top {
+        height: 50vh !important;
+        width: 100% !important;
+        min-height: 350px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .profile-image-container {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 0 !important;
+        max-width: none !important;
+        max-height: none !important;
+        box-shadow: none !important;
+    }
+
+    .profile-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center top !important;
+        border-radius: 0 !important;
+        animation: photoFloat 4s ease-in-out infinite, photoShimmer 8s ease-in-out infinite;
+        filter: brightness(1.2) contrast(1.1) saturate(1.2);
+    }
+
+    /* Enhanced Touch Feedback */
+    .skill-item, .fact-card, .project-card, .social-link {
+        min-height: 48px;
+        padding: 16px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(157, 78, 221, 0.3);
+    }
+
+    .skill-item:active, .fact-card:active, .project-card:active {
+        transform: scale(0.95);
+        background: rgba(157, 78, 221, 0.1);
+    }
+
+    /* Enhanced Menu for Mobile */
+    .menu-btn {
+        min-width: 55px;
+        min-height: 55px;
+        font-size: 1.4rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-menu {
+        width: 300px;
+        backdrop-filter: blur(25px);
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Enhanced Welcome Content */
+    .welcome-content-bottom {
+        height: 50vh !important;
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main-greeting {
+        width: 100%;
+        text-align: center;
+    }
+
+    .typing-animation {
+        margin-top: 20px;
+        min-height: 40px;
+    }
+
+    /* Performance Optimizations */
+    .page, .profile-image, .nav-arrow, .page-dot {
+        will-change: transform;
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    /* Enhanced Swipe Hints */
+    .swipe-hint {
+        position: absolute;
+        bottom: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.9;
+        animation: bounce 2s infinite;
+        z-index: 10;
+    }
+
+    .swipe-icon {
+        font-size: 1.8rem;
+        color: var(--accent-color);
+        margin-bottom: 8px;
+        text-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
+    }
+
+    .swipe-hint p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin: 0;
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* Extra Small Mobile Devices */
+@media (max-width: 480px) {
+    .profile-section-top {
+        height: 45vh !important;
+        min-height: 300px;
+    }
+
+    .welcome-content-bottom {
+        height: 55vh !important;
+        padding: 20px 15px;
+    }
+
+    .nav-arrow {
+        min-width: 50px;
+        min-height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .menu-btn {
+        min-width: 50px;
+        min-height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .page-dot {
+        min-width: 12px;
+        min-height: 12px;
+    }
+
+    .swipe-icon {
+        font-size: 1.5rem;
+    }
+
+    .swipe-hint p {
+        font-size: 0.8rem;
+    }
 }
 

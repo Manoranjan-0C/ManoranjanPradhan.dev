@@ -41,12 +41,20 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentCharIndex = 0;
     let isDeleting = false;
 
-    // Touch/swipe variables
+    // Enhanced Touch/swipe variables for mobile optimization
     let startY = 0;
     let startX = 0;
     let endY = 0;
     let endX = 0;
     let isScrolling = false;
+    let isSwiping = false;
+    let swipeStartTime = 0;
+    let touchStarted = false;
+    let lastTouchTime = 0;
+    const swipeThreshold = 50; // Minimum distance for swipe
+    const swipeTimeThreshold = 300; // Maximum time for swipe gesture
+    const doubleTapThreshold = 300; // Time window for double tap
+    let lastTapTime = 0;
 
     // Enhanced sound effects references
     const tapSound = document.getElementById('tapSound');
@@ -54,28 +62,72 @@ document.addEventListener('DOMContentLoaded', function() {
     const hoverSound = document.getElementById('hoverSound');
     const successSound = document.getElementById('successSound');
     const errorSound = document.getElementById('errorSound');
+    const whooshSound = document.getElementById('whooshSound');
+    const swooshSound = document.getElementById('swooshSound');
+    const popSound = document.getElementById('popSound');
 
-    // Sound settings for mobile
+    // Sound settings optimized for mobile
     let soundEnabled = true;
-    let soundVolume = 0.3;
+    let soundVolume = 0.4;
+    let lastSoundTime = 0;
+    const soundCooldown = 100; // Minimum time between sounds in ms
 
     // Enhanced sound playback function for mobile compatibility
-    function playSound(audioElement, volume = soundVolume) {
+    function playSound(audioElement, volume = soundVolume, force = false) {
         if (!soundEnabled || !audioElement) return;
         
+        const now = Date.now();
+        if (!force && now - lastSoundTime < soundCooldown) return;
+        
         try {
-            audioElement.volume = volume;
+            audioElement.volume = Math.min(volume, 0.8);
             audioElement.currentTime = 0;
+            
+            // Create promise-based playback for better mobile support
             const playPromise = audioElement.play();
             
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
+                playPromise.then(() => {
+                    lastSoundTime = now;
+                }).catch(error => {
                     console.log('Sound play prevented:', error);
+                    // Auto-enable on first user interaction
+                    if (error.name === 'NotAllowedError') {
+                        document.addEventListener('touchstart', enableSounds, { once: true });
+                        document.addEventListener('click', enableSounds, { once: true });
+                    }
                 });
             }
         } catch (error) {
             console.log('Sound error:', error);
         }
+    }
+
+    // Auto-enable sounds after first user interaction
+    function enableSounds() {
+        soundEnabled = true;
+        console.log('🔊 Sounds enabled for mobile!');
+        
+        // Pre-load all sounds
+        [tapSound, sliceSound, hoverSound, successSound, errorSound, whooshSound, swooshSound, popSound].forEach(audio => {
+            if (audio) {
+                audio.volume = 0.01;
+                audio.play().then(() => audio.pause()).catch(() => {});
+            }
+        });
+    }
+
+    // Enhanced sound variety for different interactions
+    function playRandomTapSound() {
+        const sounds = [tapSound, popSound];
+        const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+        playSound(randomSound, 0.3);
+    }
+
+    function playTransitionSound() {
+        const sounds = [sliceSound, whooshSound, swooshSound];
+        const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+        playSound(randomSound, 0.5, true);
     }
 
     // Add ripple effect for touch feedback
@@ -248,23 +300,40 @@ document.addEventListener('DOMContentLoaded', function() {
             contactForm.addEventListener('submit', handleFormSubmit);
         }
 
-        // Global tap sound for any interaction
-        document.addEventListener('pointerdown', () => {
-            if (tapSound) {
-                tapSound.currentTime = 0;
-                tapSound.play().catch(()=>{});
+        // Enhanced interaction sounds for mobile and desktop
+        document.addEventListener('pointerdown', (e) => {
+            // Don't play sound for text selection or input elements
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            playRandomTapSound();
+        });
+
+        // Enhanced hover sound on interactive elements
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('.skill-item, .project-card, .social-link, .page-dot, .nav-arrow, .fact-card, .tech-tag')) {
+                playSound(hoverSound, 0.2);
             }
         });
 
-        // Hover sound on interactive elements
-        document.addEventListener('mouseover', (e) => {
-            if (e.target.closest('.skill-item, .project-card, .social-link, .page-dot, .nav-arrow')) {
-                if (hoverSound) {
-                    hoverSound.currentTime = 0;
-                    hoverSound.play().catch(()=>{});
-                }
+        // Add sound effects to specific interactions
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.social-link')) {
+                playSound(successSound, 0.4);
+            } else if (e.target.closest('.project-link')) {
+                playSound(whooshSound, 0.3);
             }
         });
+
+        // Enable auto-play after first user interaction
+        document.addEventListener('touchstart', enableSounds, { once: true, passive: true });
+        document.addEventListener('click', enableSounds, { once: true });
+
+        // Add visual ripple effects for better mobile feedback
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.page-dot, .nav-arrow, .skill-item, .fact-card')) {
+                createRippleEffect(e.target.closest('.page-dot, .nav-arrow, .skill-item, .fact-card'), e.touches[0]);
+            }
+        }, { passive: true });
     }
 
     // Menu functions
@@ -306,11 +375,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log(`✅ Navigation allowed to page ${pageIndex}`);
 
-        // Play slicing sound effect
-        if (sliceSound) {
-            sliceSound.currentTime = 0;
-            sliceSound.play().catch(()=>{});
-        }
+        // Play enhanced transition sound effect
+        playTransitionSound();
 
         isTransitioning = true;
         const direction = pageIndex > currentPage ? 1 : -1;
@@ -464,81 +530,162 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Enhanced touch/swipe handlers for mobile
     function handleTouchStart(e) {
+        if (e.touches.length > 1) return; // Ignore multi-touch
+        
         startY = e.touches[0].clientY;
         startX = e.touches[0].clientX;
+        swipeStartTime = Date.now();
+        touchStarted = true;
+        isSwiping = false;
         isScrolling = false;
 
         // Check if we're in a scrollable content area
         const scrollableElements = [
-            '.about-text', '.skills-grid', '.project-content', 
-            '.connect-content', '.facts-grid', '.page-content'
+            '.about-text', '.skills-container', '.project-content', 
+            '.connect-content', '.facts-grid', '.projects-container'
         ];
         
         const isInScrollableArea = scrollableElements.some(selector => 
             e.target.closest(selector)
         );
 
-        // Allow scrolling in content areas, but not on navigation elements
+        // Allow scrolling in content areas, but prioritize horizontal swipes for navigation
         if (isInScrollableArea && !e.target.closest('.nav-arrow') && 
             !e.target.closest('.page-dot') && !e.target.closest('.menu-btn')) {
             isScrolling = true;
         }
 
-        // Prevent scrolling on navigation and header elements
+        // Always allow navigation on header, hero image, and navigation elements
         if (e.target.closest('.nav-arrow') || e.target.closest('.page-dot') || 
-            e.target.closest('.menu-btn') || e.target.closest('.profile-header')) {
+            e.target.closest('.menu-btn') || e.target.closest('.profile-section-top') ||
+            e.target.closest('.welcome-content-bottom') || e.target.closest('.page-title')) {
             isScrolling = false;
+        }
+
+        // Add visual feedback for touch
+        const target = e.target.closest('.page');
+        if (target) {
+            target.style.transition = 'transform 0.1s ease';
         }
     }
 
     function handleTouchMove(e) {
-        if (isScrolling) return; // Allow normal scrolling
-
+        if (!touchStarted || e.touches.length > 1) return;
+        
         const currentY = e.touches[0].clientY;
         const currentX = e.touches[0].clientX;
-        const deltaY = Math.abs(startY - currentY);
-        const deltaX = Math.abs(startX - currentX);
+        const deltaY = startY - currentY;
+        const deltaX = startX - currentX;
+        const absDeltaY = Math.abs(deltaY);
+        const absDeltaX = Math.abs(deltaX);
 
-        // Detect vertical scrolling intent
-        if (deltaY > deltaX && deltaY > 20) {
-            isScrolling = true;
+        // Determine if this is a swipe gesture
+        if (absDeltaX > 15 || absDeltaY > 15) {
+            isSwiping = true;
+        }
+
+        // Handle horizontal swipes for navigation (prioritize over vertical scrolling)
+        if (absDeltaX > absDeltaY && absDeltaX > 20) {
+            e.preventDefault(); // Prevent page scroll
+            isScrolling = false;
+            
+            // Visual feedback during swipe
+            const target = e.target.closest('.page');
+            if (target && absDeltaX > 30) {
+                const progress = Math.min(absDeltaX / 100, 0.3);
+                const direction = deltaX > 0 ? 1 : -1;
+                target.style.transform = `translateX(${-direction * progress * 20}px) scale(${1 - progress * 0.1})`;
+                target.style.opacity = 1 - progress * 0.2;
+            }
             return;
         }
 
-        // Only prevent default for clear horizontal swipes
-        if (deltaX > deltaY && deltaX > 20) {
+        // Allow vertical scrolling in content areas only if not swiping horizontally
+        if (isScrolling && absDeltaY > absDeltaX && absDeltaY > 15) {
+            return; // Allow normal scrolling
+        }
+
+        // Prevent default for navigation gestures
+        if (absDeltaX > 10) {
             e.preventDefault();
         }
     }
 
     function handleTouchEnd(e) {
-        if (isScrolling) return;
-
+        if (!touchStarted) return;
+        
+        const touchEndTime = Date.now();
+        const touchDuration = touchEndTime - swipeStartTime;
+        
         endY = e.changedTouches[0].clientY;
         endX = e.changedTouches[0].clientX;
 
         const deltaY = startY - endY;
         const deltaX = startX - endX;
-        const minSwipeDistance = 30; // More sensitive for better mobile experience
-        const swipeThreshold = 20; // Lower threshold for easier swiping
+        const absDeltaX = Math.abs(deltaX);
+        const absDeltaY = Math.abs(deltaY);
+        
+        // Reset visual feedback
+        const target = e.target.closest('.page');
+        if (target) {
+            target.style.transition = 'all 0.3s ease';
+            target.style.transform = '';
+            target.style.opacity = '';
+        }
 
-        // Prioritize horizontal swipes for page navigation
-        if (Math.abs(deltaX) > swipeThreshold && Math.abs(deltaX) > Math.abs(deltaY) * 0.5) {
-            e.preventDefault();
-            
-            if (Math.abs(deltaX) > minSwipeDistance) {
-                if (deltaX > 0) {
+        // Handle swipe navigation
+        if (!isScrolling && isSwiping && touchDuration < swipeTimeThreshold) {
+            // Check for horizontal swipe
+            if (absDeltaX > swipeThreshold && absDeltaX > absDeltaY * 0.7) {
+                e.preventDefault();
+                
+                // Play sound effect for swipe
+                playRandomTapSound();
+                
+                // Determine swipe direction and navigate
+                if (deltaX > 0 && absDeltaX > swipeThreshold) {
                     // Swipe left - next page
+                    console.log('📱 Swipe left detected - next page');
                     goToPage(currentPage + 1);
-                } else {
+                } else if (deltaX < 0 && absDeltaX > swipeThreshold) {
                     // Swipe right - previous page
+                    console.log('📱 Swipe right detected - previous page');
                     goToPage(currentPage - 1);
                 }
             }
         }
+
+        // Handle tap/click
+        if (!isSwiping && touchDuration < 200 && absDeltaX < 10 && absDeltaY < 10) {
+            const currentTime = Date.now();
+            
+            // Check for double tap
+            if (currentTime - lastTapTime < doubleTapThreshold) {
+                console.log('📱 Double tap detected');
+                // Double tap could toggle menu or fullscreen
+                if (e.target.closest('.profile-image')) {
+                    // Toggle fullscreen for profile image or some action
+                    playSound(successSound, 0.4);
+                }
+            } else {
+                // Single tap
+                playRandomTapSound();
+                
+                // Handle tap on navigation elements
+                if (e.target.closest('.nav-arrow') || e.target.closest('.page-dot')) {
+                    // Navigation elements handle their own click events
+                    return;
+                }
+            }
+            
+            lastTapTime = currentTime;
+        }
         
-        // Reset body user select
-        document.body.style.userSelect = '';
+        // Reset all state
+        touchStarted = false;
+        isSwiping = false;
+        isScrolling = false;
+        lastTouchTime = touchEndTime;
     }
 
     // Mouse wheel handler
