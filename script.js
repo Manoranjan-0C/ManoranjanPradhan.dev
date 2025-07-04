@@ -16,6 +16,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const pageDots = document.querySelectorAll('.page-dot');
     const navLinks = document.querySelectorAll('.nav-menu nav a');
 
+    // Debug: Log initial setup
+    console.log('🔧 Debugging page navigation setup:');
+    console.log('Total pages found:', pages.length);
+    console.log('Total page dots found:', pageDots.length);
+    console.log('Total nav links found:', navLinks.length);
+    console.log('Expected total pages:', totalPages);
+
+    // Verify all pages are properly structured
+    pages.forEach((page, index) => {
+        const pageNum = page.getAttribute('data-page');
+        console.log(`Page ${index}: data-page="${pageNum}", class="${page.className}"`);
+    });
+
     // Typing animation texts
     const typingTexts = [
         'Building the future with code...',
@@ -57,6 +70,65 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('🚀 Mobile portfolio loaded successfully!');
         console.log('💚 Built with love by Manoranjan Pradhan');
         console.log('📱 Optimized for mobile devices with page transitions!');
+        
+        // Debug: Test navigation to all pages
+        console.log('🧪 Testing navigation to all pages...');
+        
+        // Add a test function to verify all pages work
+        window.testAllPages = function() {
+            console.log('🔬 Testing navigation to all pages:');
+            for (let i = 0; i < totalPages; i++) {
+                setTimeout(() => {
+                    console.log(`Testing page ${i}...`);
+                    goToPage(i);
+                }, i * 2000);
+            }
+        };
+        
+        // Add a direct navigation function for debugging
+        window.goToPageDebug = function(pageNum) {
+            console.log(`🎯 Manual navigation to page ${pageNum}`);
+            goToPage(pageNum);
+        };
+        
+        // Add a force navigation function that bypasses transition checks
+        window.forceNavigateTo = function(pageNum) {
+            console.log(`🚀 Force navigating to page ${pageNum}`);
+            isTransitioning = false; // Reset transition flag
+            if (pageNum >= 0 && pageNum < totalPages) {
+                currentPage = pageNum;
+                showPage(pageNum);
+            }
+        };
+        
+        // Add safety mechanism to reset stuck transitions
+        setInterval(() => {
+            if (isTransitioning) {
+                console.warn('⚠️ Transition stuck, resetting...');
+                isTransitioning = false;
+            }
+        }, 5000);
+        
+        console.log('💡 Debug commands available:');
+        console.log('- testAllPages() - Test navigation to all pages');
+        console.log('- goToPageDebug(n) - Navigate directly to page n');
+        console.log('- forceNavigateTo(n) - Force navigate to page n');
+        console.log('- Press keys 1-5 to navigate to pages 0-4');
+        
+        // Immediate test of problematic pages
+        setTimeout(() => {
+            console.log('🔍 Testing access to pages 3 and 4...');
+            if (pages[3]) {
+                console.log('✅ Page 3 element found:', pages[3]);
+            } else {
+                console.error('❌ Page 3 element not found!');
+            }
+            if (pages[4]) {
+                console.log('✅ Page 4 element found:', pages[4]);
+            } else {
+                console.error('❌ Page 4 element not found!');
+            }
+        }, 1000);
     }
 
     // Setup all event listeners
@@ -77,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetPage = parseInt(this.getAttribute('data-page'));
+                console.log('📋 Navigation menu link clicked, navigating to:', targetPage);
                 goToPage(targetPage);
                 closeMenuHandler();
             });
@@ -86,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
         pageDots.forEach(dot => {
             dot.addEventListener('click', function() {
                 const targetPage = parseInt(this.getAttribute('data-page'));
+                console.log('🔘 Page dot clicked, navigating to:', targetPage);
                 goToPage(targetPage);
             });
         });
@@ -93,8 +167,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Navigation arrows
         document.addEventListener('click', function(e) {
             if (e.target.closest('.nav-arrow.prev')) {
+                console.log('⬅️ Previous arrow clicked, navigating to:', currentPage - 1);
                 goToPage(currentPage - 1);
             } else if (e.target.closest('.nav-arrow.next')) {
+                console.log('➡️ Next arrow clicked, navigating to:', currentPage + 1);
                 goToPage(currentPage + 1);
             }
         });
@@ -153,14 +229,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Page navigation with enhanced animations
     function goToPage(pageIndex) {
+        console.log(`🔍 goToPage called with pageIndex: ${pageIndex}`);
+        console.log(`Current state - currentPage: ${currentPage}, totalPages: ${totalPages}, isTransitioning: ${isTransitioning}`);
+        
         if (isTransitioning || pageIndex === currentPage || pageIndex < 0 || pageIndex >= totalPages) {
+            console.log(`❌ Navigation blocked - isTransitioning: ${isTransitioning}, pageIndex === currentPage: ${pageIndex === currentPage}, pageIndex < 0: ${pageIndex < 0}, pageIndex >= totalPages: ${pageIndex >= totalPages}`);
             return;
         }
+
+        console.log(`✅ Navigation allowed to page ${pageIndex}`);
 
         isTransitioning = true;
         const direction = pageIndex > currentPage ? 1 : -1;
         const currentPageEl = pages[currentPage];
         const nextPageEl = pages[pageIndex];
+
+        // Debug: Verify page elements exist
+        console.log(`Current page element (${currentPage}):`, currentPageEl);
+        console.log(`Next page element (${pageIndex}):`, nextPageEl);
+        
+        if (!currentPageEl || !nextPageEl) {
+            console.error('❌ Page elements not found!');
+            isTransitioning = false;
+            return;
+        }
 
         // Remove active class from current page
         currentPageEl.classList.remove('active');
@@ -211,6 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             setTimeout(() => {
                 isTransitioning = false;
+                console.log(`✅ Navigation to page ${pageIndex} completed successfully`);
             }, 100);
         }, 100);
     }
@@ -266,6 +359,32 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'Escape':
                 e.preventDefault();
                 closeMenuHandler();
+                break;
+            // Debug: Direct page navigation with number keys
+            case '1':
+                e.preventDefault();
+                console.log('🔢 Key 1 pressed - navigating to page 0');
+                goToPage(0);
+                break;
+            case '2':
+                e.preventDefault();
+                console.log('🔢 Key 2 pressed - navigating to page 1');
+                goToPage(1);
+                break;
+            case '3':
+                e.preventDefault();
+                console.log('🔢 Key 3 pressed - navigating to page 2');
+                goToPage(2);
+                break;
+            case '4':
+                e.preventDefault();
+                console.log('🔢 Key 4 pressed - navigating to page 3');
+                goToPage(3);
+                break;
+            case '5':
+                e.preventDefault();
+                console.log('🔢 Key 5 pressed - navigating to page 4');
+                goToPage(4);
                 break;
         }
     }

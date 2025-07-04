@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-button {
+            background: #9d4edd;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .test-button:hover {
+            background: #7b2cbf;
+        }
+        .log {
+            background: #111;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔧 Portfolio Navigation Test</h1>
+        <p>This page helps test the navigation functionality of the portfolio.</p>
+        
+        <div>
+            <h3>Direct Navigation Tests:</h3>
+            <button class="test-button" onclick="openPortfolioAndTest(0)">Test Page 0 (Welcome)</button>
+            <button class="test-button" onclick="openPortfolioAndTest(1)">Test Page 1 (About)</button>
+            <button class="test-button" onclick="openPortfolioAndTest(2)">Test Page 2 (Skills)</button>
+            <button class="test-button" onclick="openPortfolioAndTest(3)">Test Page 3 (Projects)</button>
+            <button class="test-button" onclick="openPortfolioAndTest(4)">Test Page 4 (Connect)</button>
+        </div>
+        
+        <div>
+            <h3>Automatic Tests:</h3>
+            <button class="test-button" onclick="runAllTests()">Run All Navigation Tests</button>
+            <button class="test-button" onclick="openPortfolio()">Open Portfolio</button>
+        </div>
+        
+        <div class="log" id="log">
+            <p>Test log will appear here...</p>
+        </div>
+    </div>
+
+    <script>
+        function log(message) {
+            const logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.innerHTML += `<p>[${timestamp}] ${message}</p>`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        function openPortfolio() {
+            const portfolioWindow = window.open('/', '_blank');
+            log('📖 Portfolio window opened');
+            return portfolioWindow;
+        }
+
+        function openPortfolioAndTest(pageNum) {
+            log(`🧪 Testing navigation to page ${pageNum}`);
+            const portfolioWindow = openPortfolio();
+            
+            setTimeout(() => {
+                try {
+                    if (portfolioWindow.goToPageDebug) {
+                        portfolioWindow.goToPageDebug(pageNum);
+                        log(`✅ Successfully navigated to page ${pageNum}`);
+                    } else {
+                        log(`⚠️ Navigation function not available yet, trying force navigation...`);
+                        if (portfolioWindow.forceNavigateTo) {
+                            portfolioWindow.forceNavigateTo(pageNum);
+                            log(`✅ Force navigation to page ${pageNum} attempted`);
+                        } else {
+                            log(`❌ Navigation functions not available`);
+                        }
+                    }
+                } catch (error) {
+                    log(`❌ Error testing page ${pageNum}: ${error.message}`);
+                }
+            }, 3000);
+        }
+
+        function runAllTests() {
+            log('🚀 Starting comprehensive navigation tests...');
+            const portfolioWindow = openPortfolio();
+            
+            setTimeout(() => {
+                try {
+                    if (portfolioWindow.testAllPages) {
+                        portfolioWindow.testAllPages();
+                        log('✅ Automatic test suite started');
+                    } else {
+                        log('❌ Test functions not available');
+                    }
+                } catch (error) {
+                    log(`❌ Error running tests: ${error.message}`);
+                }
+            }, 3000);
+        }
+
+        // Initial log
+        log('🔧 Navigation test page loaded');
+        log('💡 Click buttons above to test portfolio navigation');
+        log('📖 Open browser developer console to see detailed logs');
+    </script>
+</body>
+</html>
