@@ -417,36 +417,25 @@ body {
     padding: 0;
 }
 
+/* === Hero Image Override === */
 .profile-section-top {
-    width: 100%;
+    position: relative;
     height: 50vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(52, 152, 219, 0.1));
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
 }
 
-.profile-image-container {
-    position: relative;
+.profile-image-container,
+.profile-image {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .profile-image {
-    width: auto;
-    height: 90%;
-    max-width: 90%;
-    border-radius: 20px;
     object-fit: cover;
-    box-shadow: 0 15px 50px rgba(52, 152, 219, 0.3);
-    transition: var(--transition);
-    opacity: 0;
-    transform: scale(0.8);
-    animation: zoomIn 1s ease forwards;
-    animation-delay: 0.5s;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 .welcome-content-bottom {
