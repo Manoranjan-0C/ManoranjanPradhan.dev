@@ -48,10 +48,54 @@ document.addEventListener('DOMContentLoaded', function() {
     let endX = 0;
     let isScrolling = false;
 
-    // Sound effects references
+    // Enhanced sound effects references
     const tapSound = document.getElementById('tapSound');
     const sliceSound = document.getElementById('sliceSound');
     const hoverSound = document.getElementById('hoverSound');
+    const successSound = document.getElementById('successSound');
+    const errorSound = document.getElementById('errorSound');
+
+    // Sound settings for mobile
+    let soundEnabled = true;
+    let soundVolume = 0.3;
+
+    // Enhanced sound playback function for mobile compatibility
+    function playSound(audioElement, volume = soundVolume) {
+        if (!soundEnabled || !audioElement) return;
+        
+        try {
+            audioElement.volume = volume;
+            audioElement.currentTime = 0;
+            const playPromise = audioElement.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('Sound play prevented:', error);
+                });
+            }
+        } catch (error) {
+            console.log('Sound error:', error);
+        }
+    }
+
+    // Add ripple effect for touch feedback
+    function createRippleEffect(element, event) {
+        const ripple = document.createElement('div');
+        ripple.className = 'page-transition-effect';
+        
+        const rect = element.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        
+        element.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    }
 
     // Initialize the app
     function init() {
