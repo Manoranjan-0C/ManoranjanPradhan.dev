@@ -66,6 +66,33 @@ document.addEventListener('DOMContentLoaded', function() {
         // Start typing animation
         setTimeout(typeWriter, 2000);
 
+        // ---- added: preload and unlock audio on mobile ----
+        const audioElements = [tapSound, sliceSound, hoverSound].filter(Boolean);
+        audioElements.forEach(audio => {
+            audio.volume = 0.8;
+            audio.load();
+        });
+
+        const unlockAudio = () => {
+            audioElements.forEach(audio => {
+                try {
+                    const playPromise = audio.play();
+                    if (playPromise instanceof Promise) {
+                        playPromise.then(() => {
+                            audio.pause();
+                            audio.currentTime = 0;
+                        }).catch(()=>{});
+                    }
+                } catch (_) {}
+            });
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('click', unlockAudio);
+        };
+
+        // Unlock audio on the first user interaction (mobile Safari/iOS)
+        document.addEventListener('touchstart', unlockAudio, { once: true, passive: true });
+        document.addEventListener('click', unlockAudio, { once: true });
+
         // Add event listeners
         setupEventListeners();
 
@@ -221,6 +248,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+
+        // Touch equivalent for hover sound on mobile
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.skill-item, .project-card, .social-link, .page-dot, .nav-arrow')) {
+                if (hoverSound) {
+                    hoverSound.currentTime = 0;
+                    hoverSound.play().catch(()=>{});
+                }
+            }
+        }, { passive: true });
     }
 
     // Menu functions
