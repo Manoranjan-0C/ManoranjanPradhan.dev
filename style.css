@@ -440,7 +440,7 @@ body {
 
 .profile-image {
     object-fit: cover !important; /* Keep aspect ratio while filling */
-    object-position: center !important;
+    object-position: center 30% !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     animation: zoomIn 1s ease-out both;
